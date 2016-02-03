@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8F8AFFC8-9D2D-46E4-A168-61F95904C853}</ProjectGuid>
+    <ProjectGuid>{F70F4EAF-4026-4474-9144-27AB5D7C036F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BasicGeopositionExtensions</RootNamespace>
-    <AssemblyName>BasicGeopositionExtensions</AssemblyName>
+    <RootNamespace>BGExtensionsTest</RootNamespace>
+    <AssemblyName>BGExtensionsTest</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
@@ -107,9 +107,15 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BasicGeopositionExtensions.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Properties\BasicGeopositionExtensions.rd.xml" />
+    <EmbeddedResource Include="Properties\BGExtensionsTest.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BasicGeopositionExtensions\BasicGeopositionExtensions.csproj">
+      <Project>{8f8affc8-9d2d-46e4-a168-61f95904c853}</Project>
+      <Name>BasicGeopositionExtensions</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
