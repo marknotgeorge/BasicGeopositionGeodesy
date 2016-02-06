@@ -80,5 +80,55 @@ namespace BGGeodesyTestApp
             Assert.AreEqual(result.Latitude, expectedLatitude, latitudeDelta);
             Assert.AreEqual(result.Longitude, expectedLongitude, longitudeDelta);
         }
+
+        [TestMethod]
+        public void TestDestination()
+        {
+            Initialize();
+            var latitudeDelta = FiveKilometresEast.Latitude * errorPercent;
+            var longitudeDelta = FiveKilometresEast.Longitude * errorPercent;
+
+            var result = ArnosGrove.Destination(90, 5000);
+
+            Assert.AreEqual(result.Latitude, FiveKilometresEast.Latitude, latitudeDelta);
+            Assert.AreEqual(result.Longitude, FiveKilometresEast.Longitude, longitudeDelta);
+        }
+
+        [TestMethod]
+        public void TestIntersection()
+        {
+            double expectedLat = 50.9076;
+            double expectedLon = 4.5086;
+
+            BasicGeoposition result;
+
+            BasicGeoposition firstPosition = new BasicGeoposition()
+            {
+                Latitude = 51.8853,
+                Longitude = 0.2545
+            };
+
+            BasicGeoposition secondPosition = new BasicGeoposition()
+            {
+                Latitude = 49.0034,
+                Longitude = 2.5735
+            };
+
+            double firstBearing = 108.55;
+            double secondBearing = 32.44;
+
+            var latitudeDelta = expectedLat * errorPercent;
+            var longitudeDelta = expectedLon * errorPercent;
+
+            var testValue = firstPosition.Intersection(firstBearing, secondPosition, secondBearing);
+
+            if (testValue != null)
+            {
+                result = (BasicGeoposition)testValue;
+
+                Assert.AreEqual(expectedLat, result.Latitude, latitudeDelta);
+                Assert.AreEqual(expectedLon, result.Longitude, longitudeDelta);
+            }
+        }
     }
 }

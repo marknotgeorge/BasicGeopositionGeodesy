@@ -121,5 +121,94 @@ namespace MarkNotGeorge.BasicGeopositionGeodesy
                 Longitude = lon3.ToDegrees()
             };
         }
+
+        /// <summary>
+        /// Returns the destination point from this point having travelled the given distance on the
+        /// given initial bearing (bearing may vary before destination is reached)
+        /// </summary>
+        /// <param name="brng">Initial bearing in degrees from True North</param>
+        /// <param name="dist">Distance in metres</param>
+        /// <returns></returns>
+        public static BasicGeoposition Destination(this BasicGeoposition thisPoint, double bearing, double distance)
+        {
+            // Convert distance to angular distance in radians
+            double angularDistance = distance / earthRadius;
+
+            var lat1 = thisPoint.Latitude.ToRadians();
+            var lon1 = thisPoint.Longitude.ToRadians();
+
+            var lat2 = Math.Asin(Math.Sin(lat1) * Math.Cos(angularDistance) +
+                Math.Cos(lat1) * Math.Sin(angularDistance) * Math.Cos(bearing.ToRadians()));
+
+            var midLon = lon1 + Math.Atan2(Math.Sin(bearing.ToRadians()) * Math.Sin(angularDistance) * Math.Cos(lat1),
+                               Math.Cos(angularDistance) - Math.Sin(lat1) * Math.Sin(lat2));
+
+            var lon2 = (midLon + 3 * Math.PI) % (2 * Math.PI) - Math.PI;
+
+            return new BasicGeoposition()
+            {
+                Latitude = lat2.ToDegrees(),
+                Longitude = lon2.ToDegrees()
+            };
+        }
+
+        /// <summary>
+        /// Returns the point of intersection of two paths defined by Position and bearing
+        /// 
+        /// see http://williams.best.vwh.net/avform.htm#Intersection
+        /// </summary>
+        /// <param name="firstBearing">Initial bearing from first point in degrees</param>
+        /// <param name="secondPoint">Second Position</param>
+        /// <param name="secondBearing">Initial bearing from second point in degrees</param>
+        /// <returns></returns>
+        public static BasicGeoposition? Intersection(this BasicGeoposition firstPoint, double firstBearing,
+            BasicGeoposition secondPoint, double secondBearing)
+        {
+            // see http://williams.best.vwh.net/avform.htm#Intersection
+
+            var lat1 = firstPoint.Latitude.ToRadians();
+            var lon1 = firstPoint.Longitude.ToRadians();
+            var lat2 = secondPoint.Latitude.ToRadians();
+            var lon2 = secondPoint.Longitude.ToRadians();
+            var theta13 = firstBearing.ToRadians();
+            var theta23 = secondBearing.ToRadians();
+            var deltaLat = lat2 - lat1;
+            var deltaLon = lon2 - lon1;
+
+            var delta12 = 2 * Math.Asin(Math.Sqrt(Math.Sin(deltaLat / 2) * Math.Sin(deltaLat / 2)
+                + Math.Cos(lat1) * Math.Cos(lat2) * Math.Sin(deltaLon / 2) * Math.Sin(deltaLon / 2)));
+            if (delta12 == 0)
+                return null;
+
+            // initial/final bearings between points
+            var theta1 = Math.Acos((Math.Sin(lat2) - Math.Sin(lat1) * Math.Cos(delta12)) / (Math.Sin(delta12) * Math.Cos(lat1)));
+            if (double.IsNaN(theta1)) theta1 = 0; // protect against rounding
+            var theta2 = Math.Acos((Math.Sin(lat1) - Math.Sin(lat2) * Math.Cos(delta12)) / (Math.Sin(delta12) * Math.Cos(lat2)));
+
+            var theta12 = Math.Sin(lon2 - lon1) > 0 ? theta1 : 2 * Math.PI - theta1;
+            var theta21 = Math.Sin(lon2 - lon1) > 0 ? 2 * Math.PI - theta2 : theta2;
+
+            var alpha1 = (theta13 - theta12 + Math.PI) % (2 * Math.PI) - Math.PI; // angle 2-1-3
+            var alpha2 = (theta21 - theta23 + Math.PI) % (2 * Math.PI) - Math.PI; // angle 1-2-3
+
+            if (Math.Sin(alpha1) == 0 && Math.Sin(alpha2) == 0) return null; // infinite intersections
+            if (Math.Sin(alpha1) * Math.Sin(alpha2) < 0) return null;      // ambiguous intersection
+
+            //α1 = Math.abs(α1);
+            //α2 = Math.abs(α2);
+            // ... Ed Williams takes abs of α1/α2, but seems to break calculation?
+
+            var alpha3 = Math.Acos(-Math.Cos(alpha1) * Math.Cos(alpha2) + Math.Sin(alpha1) * Math.Sin(alpha2) * Math.Cos(delta12));
+            var delta13 = Math.Atan2(Math.Sin(delta12) * Math.Sin(alpha1) * Math.Sin(alpha2), Math.Cos(alpha2) + Math.Cos(alpha1) * Math.Cos(alpha3));
+            var lat3 = Math.Asin(Math.Sin(lat1) * Math.Cos(delta13) + Math.Cos(lat1) * Math.Sin(delta13) * Math.Cos(theta13));
+            var deltaLon13 = Math.Atan2(Math.Sin(theta13) * Math.Sin(delta13) * Math.Cos(lat1), Math.Cos(delta13) - Math.Sin(lat1) * Math.Sin(lat3));
+            var lon3 = lon1 + deltaLon13;
+
+            return new BasicGeoposition()
+            {
+                Latitude = lat3.ToDegrees(),
+                Longitude = lon3.ToDegrees()
+            };
+        }
     }
 }
