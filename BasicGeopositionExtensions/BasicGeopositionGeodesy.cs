@@ -36,10 +36,10 @@ namespace MarkNotGeorge.BasicGeopositionGeodesy
         }
 
         /// <summary>
-        /// Returns the great-circle distance from this BasicGeoposition to the supplied
-        /// BasicGeoposition, using the Haversine formula.
+        /// Returns the great-circle distance from this position to the supplied position, using the
+        /// Haversine formula.
         /// </summary>
-        /// <param name="toPoint">The destination BasicGeocoordinate.</param>
+        /// <param name="toPoint">The destination position.</param>
         /// <returns>The distance, in metres.</returns>
         public static double DistanceTo(this BasicGeoposition thisPoint, BasicGeoposition toPoint)
         {
@@ -60,10 +60,10 @@ namespace MarkNotGeorge.BasicGeopositionGeodesy
         }
 
         /// <summary>
-        /// Returns the (initial) bearing from this BasicGeoposition to the supplied
-        /// BasicGeoposition, in degrees see http://williams.best.vwh.net/avform.htm#Crs
+        /// Returns the (initial) bearing from this position to the supplied position, in degrees
+        /// see http://williams.best.vwh.net/avform.htm#Crs
         /// </summary>
-        /// <param name="toPoint">The destination BasicGeoposition</param>
+        /// <param name="toPoint">The destination position</param>
         /// <returns>Initial bearing, in degrees clockwise from True North</returns>
         public static double InitialBearing(this BasicGeoposition thisPoint, BasicGeoposition toPoint)
         {
@@ -81,11 +81,11 @@ namespace MarkNotGeorge.BasicGeopositionGeodesy
         }
 
         /// <summary>
-        /// Returns final bearing arriving at supplied destination BasicGeoposition from this
-        /// BasicGeoposition; the final bearing will differ from the initial bearing by varying
-        /// degrees according to distance and latitude.
+        /// Returns final bearing arriving at supplied destination position from this position; the
+        /// final bearing will differ from the initial bearing by varying degrees according to
+        /// distance and latitude.
         /// </summary>
-        /// <param name="toPosition">The destination BasicGeoposition</param>
+        /// <param name="toPosition">The destination position</param>
         /// <returns>Final bearing, in degrees clockwise from True North</returns>
         public static double FinalBearing(this BasicGeoposition thisPoint, BasicGeoposition toPoint)
         {
@@ -95,11 +95,11 @@ namespace MarkNotGeorge.BasicGeopositionGeodesy
         }
 
         /// <summary>
-        /// Returns the midpoint between this Position and the supplied Position. see
+        /// Returns the midpoint between this position and the supplied position. see
         /// http://mathforum.org/library/drmath/view/51822.html for derivation
         /// </summary>
-        /// <param name="toPosition">The destination Position</param>
-        /// <returns>Midpoint between this Position and the supplied Position</returns>
+        /// <param name="toPosition">The destination position</param>
+        /// <returns>Midpoint between this position and the supplied position</returns>
         public static BasicGeoposition MidpointTo(this BasicGeoposition thisPoint, BasicGeoposition toPoint)
         {
             var lat1 = thisPoint.Latitude.ToRadians();
@@ -153,14 +153,14 @@ namespace MarkNotGeorge.BasicGeopositionGeodesy
         }
 
         /// <summary>
-        /// Returns the point of intersection of two paths defined by Position and bearing
+        /// Returns the point of intersection of two paths defined by position and bearing
         /// 
         /// see http://williams.best.vwh.net/avform.htm#Intersection
         /// </summary>
         /// <param name="firstBearing">Initial bearing from first point in degrees</param>
-        /// <param name="secondPoint">Second Position</param>
+        /// <param name="secondPoint">Second position</param>
         /// <param name="secondBearing">Initial bearing from second point in degrees</param>
-        /// <returns></returns>
+        /// <returns>The point of intersection, or null.</returns>
         public static BasicGeoposition? Intersection(this BasicGeoposition firstPoint, double firstBearing,
             BasicGeoposition secondPoint, double secondBearing)
         {
