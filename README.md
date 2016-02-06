@@ -1,5 +1,5 @@
-# BasicGeopositionExtensions
-A C# extension method class for the BasicGeoposition class, containing geodesic methods. This code is based upon my GeodesicLibrary repo (https://github.com/marknotgeorge/GeodesicLibrary), which in turn is a port of Javascript functions written by Chris Veness (http://www.movable-type.co.uk/scripts/latlong.html and on GitHub at https://github.com/chrisveness/geodesy). The difference between this library and GeodesicLibrary is that this library uses the BasicGeoposition rather than a custom Position class. This class also uses the metre as the unit of length, which in turn means it is not dependent upon the Units.Net library.
+# BasicGeopositionGeodesy
+A C# extension method class for the BasicGeoposition class, containing geodesy methods. This code is based upon my GeodesicLibrary repo (https://github.com/marknotgeorge/GeodesicLibrary), which in turn is a port of Javascript functions written by Chris Veness (http://www.movable-type.co.uk/scripts/latlong.html and on GitHub at https://github.com/chrisveness/geodesy). The difference between this library and GeodesicLibrary is that this library uses the BasicGeoposition rather than a custom Position class. This class also uses the metre as the unit of length, which in turn means it is not dependent upon the Units.Net library.
 
 ## Licence
 This library ©2016 Mark Johnson. Original Javscript ©2002-15 Chris Veness. Both this library and the original Javascript are free to use under the MIT licence:
