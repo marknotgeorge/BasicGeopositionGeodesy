@@ -124,9 +124,9 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BasicGeopositionExtensions\BasicGeopositionExtensions.csproj">
+    <ProjectReference Include="..\BasicGeopositionExtensions\BasicGeopositionGeodesy.csproj">
       <Project>{8f8affc8-9d2d-46e4-a168-61f95904c853}</Project>
-      <Name>BasicGeopositionExtensions</Name>
+      <Name>BasicGeopositionGeodesy</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

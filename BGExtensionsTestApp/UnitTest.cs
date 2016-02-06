@@ -1,9 +1,9 @@
-﻿using MarkNotGeorge.BasicGeopositionExtensions;
+﻿using MarkNotGeorge.BasicGeopositionGeodesy;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using System;
 using Windows.Devices.Geolocation;
 
-namespace BGExtensionsTestApp
+namespace BGGeodesyTestApp
 {
     [TestClass]
     public class UnitTests
@@ -29,11 +29,11 @@ namespace BGExtensionsTestApp
         }
 
         [TestMethod]
-        public void TestGetDistanceTo()
+        public void TestDistanceTo()
         {
             Initialize();
 
-            var result = ArnosGrove.GetDistanceTo(FiveKilometresEast);
+            var result = ArnosGrove.DistanceTo(FiveKilometresEast);
 
             var errorDelta = 5000 * errorPercent;
 
@@ -62,6 +62,23 @@ namespace BGExtensionsTestApp
             var errorDelta = 90.0284 * errorPercent;
 
             Assert.AreEqual(result, 90, errorDelta);
+        }
+
+        [TestMethod]
+        public void TestMidpointTo()
+        {
+            Initialize();
+
+            double expectedLatitude = 51.6163;
+            double expectedLongitude = 0.1697;
+
+            var latitudeDelta = expectedLatitude * errorPercent;
+            var longitudeDelta = expectedLongitude * errorPercent;
+
+            var result = ArnosGrove.MidpointTo(FiveKilometresEast);
+
+            Assert.AreEqual(result.Latitude, expectedLatitude, latitudeDelta);
+            Assert.AreEqual(result.Longitude, expectedLongitude, longitudeDelta);
         }
     }
 }

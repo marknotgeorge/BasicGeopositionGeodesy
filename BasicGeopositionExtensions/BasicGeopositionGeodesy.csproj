@@ -104,10 +104,11 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="BasicGeopositionExtensions.licenseheader" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BasicGeopositionExtensions.cs" />
+    <Compile Include="BasicGeopositionGeodesy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\BasicGeopositionExtensions.rd.xml" />
   </ItemGroup>

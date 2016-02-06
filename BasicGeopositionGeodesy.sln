@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicGeopositionExtensions", "BasicGeopositionExtensions\BasicGeopositionExtensions.csproj", "{8F8AFFC8-9D2D-46E4-A168-61F95904C853}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicGeopositionGeodesy", "BasicGeopositionExtensions\BasicGeopositionGeodesy.csproj", "{8F8AFFC8-9D2D-46E4-A168-61F95904C853}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BGExtensionsTestApp", "BGExtensionsTestApp\BGExtensionsTestApp.csproj", "{F10C7C5A-8E9D-4CCF-8553-19D964A01BF7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BGGeodesyTestApp", "BGExtensionsTestApp\BGGeodesyTestApp.csproj", "{F10C7C5A-8E9D-4CCF-8553-19D964A01BF7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
